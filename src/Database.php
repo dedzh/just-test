@@ -1,19 +1,26 @@
 <?php
-declare(strict_types =1);
 
-class database
+declare(strict_types=1);
+
+class Database
 {
     private static ?PDO $instance = null;
-
     public static function getConnection(): PDO
     {
-        if (self::$instance == null){
-            $dbPath = __DIR__ . '/../storage'
+        if (self::$instance === null) {
+            $dbPath =dirname(__DIR__) . '/../storage/database.sqlite';
+
+            if (!is_dir(dirname($dbPath))) {
+                mkdir(dirname($dbPath), 0777, true);
+            }
+
+            self::$instance = new PDO('sqlite:' . $dbPath);
+            self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$instance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+            $schema = file_get_contents(__DIR__ . '/../schema.sql');
+            self::$instance->exec($schema);
         }
-
+        return self::$instance;
     }
-
-
-
-
 }
