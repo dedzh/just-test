@@ -3,13 +3,11 @@ declare(strict_types=1);
 spl_autoload_register(function(string $class):void
 {
     $paths =[
-        __DIR__ . '/../src/' . $class . 'php',
-        __DIR__ . '/../src/Model/' . $class . 'php',
-        __DIR__ . '/../src/Controller/' . $class . 'php',
+        __DIR__ . '/../src/' . $class . '.php',
+        __DIR__ . '/../src/Model/' . $class . '.php',
+        __DIR__ . '/../src/Controller/' . $class . '.php',
     ];
     foreach ($paths as $file) {
-        // ВРЕМЕННО: покажет, куда ищет и есть ли там файл
-        var_dump($file, is_file($file));
         if (is_file($file)){
             require $file;
             return;
@@ -18,6 +16,7 @@ spl_autoload_register(function(string $class):void
     }
 
 });
+
 
 $pdo = Database::getConnection();
 $controller = new ProductController($pdo);

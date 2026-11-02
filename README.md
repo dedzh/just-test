@@ -21,12 +21,3 @@ php -S localhost:8000 -t public
 ```
 Открыть http://localhost:8000
 ---
-
-## 🚀 Шаг 10. Запуск и проверка
-
-```bash
-cd mini-wms
-php -S localhost:8000 -t public
-```
-
-Открой http://localhost:8000. Должна открыться пустая таблица.
